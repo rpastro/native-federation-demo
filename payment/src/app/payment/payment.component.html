@@ -1,0 +1,12 @@
+<div>
+  <div>Account number:</div>
+  <input type="text" [(ngModel)]="account" >
+</div>
+<div>
+  <div>Amount:</div>
+  <input type="text" [(ngModel)]="amount" >
+</div>
+<div>
+  <button [disabled]="!account || !amount" (click)="pay()">Pay Now</button>
+  <span>{{ result() }}</span>
+</div>
