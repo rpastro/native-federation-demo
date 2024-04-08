@@ -1,27 +1,20 @@
 import { Routes } from '@angular/router';
-import { loadRemoteModule } from '@angular-architects/module-federation';
+import { loadRemoteModule } from '@angular-architects/native-federation';
 
 export const routes: Routes = [
   {
-    path: 'payment',
-    loadChildren: () => import('payment/Module').then(m => m.PaymentModule)
-  },
-  {
     path: 'billing',
     loadChildren: () =>
-      loadRemoteModule({
-        type: 'module',
-        remoteEntry: 'http://localhost:4201/remoteEntry.js',
-        exposedModule: './Module'
-      }).then(m => m.BillingModule)
+      loadRemoteModule('billing', './Module').then(m => m.BillingModule)
+  },
+  {
+    path: 'payment',
+    loadComponent: () =>
+      loadRemoteModule('payment', './Component').then(m => m.PaymentComponent)
   },
   {
     path: 'support',
-    loadChildren: () =>
-      loadRemoteModule({
-        type: 'manifest',
-        remoteName: 'support',
-        exposedModule: './Module'
-      }).then(m => m.SupportModule)
+    loadComponent: () =>
+      loadRemoteModule('support', './Component').then(m => m.SupportComponent)
   }
 ];
